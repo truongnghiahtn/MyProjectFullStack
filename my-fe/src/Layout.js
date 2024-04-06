@@ -4,14 +4,11 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PrivateRoute from "./PrivateRoute.js";
 import React,{Suspense} from "react";
+import Login from "./app/page/auth/Login.js";
+import Register from "./app/page/auth/Register.js";
+import ActiveUser from "./app/page/auth/PageActive.js";
+import PageNotFound from "./app/page/PageNotFound.js";
 
-const PageNotFound = () => {
-  return (
-    <div className="alert alert-danger" role="alert">
-      Page not found 404
-    </div>
-  );
-};
 const Layout = (props) => {
   return (
     <Suspense fallback={<div>loading...</div>}>
@@ -28,14 +25,15 @@ const Layout = (props) => {
             <Route path="manager-quiz" element={<ManagerQuiz />} />
             <Route path="manager-questions" element={<ManagerQuestion />} />
           </Route> */}
-          {/* <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} /> */}
-          <Route path='*' element={<PageNotFound />} />
+          <Route path="/active-user/:token" element={<ActiveUser />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path='*' element={<PageNotFound/>} />
         </Routes>
       </BrowserRouter>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={10000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
