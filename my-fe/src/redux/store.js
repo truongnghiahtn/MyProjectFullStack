@@ -17,10 +17,8 @@ import storage from "redux-persist/lib/storage";
 // cofig reduxStore + Persit
 
 const persistConfig = {
-  key: "root",
-  version: 1,
+  key: 'root',
   storage,
-  whitelist: ["app"],
 };
 
 const rootReducer = combineReducers({

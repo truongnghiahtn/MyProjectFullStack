@@ -9,7 +9,7 @@ const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
 const cookieParser = require("cookie-parser");
-var cors = require('cors')
+var cors = require('cors');
 // import module
 const db = require('./config/database');
 const route = require('./routes');
@@ -37,7 +37,13 @@ app.use('/api',limiter);
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
 app.use(express.json());// parse body, read data from body
-app.use(cors())
+// Cấu hình CORS
+const corsOptions = {
+  origin: 'http://localhost:3000', // Cập nhật nguồn mà bạn muốn chấp nhận yêu cầu từ
+  credentials: true // Cho phép gửi cookie
+};
+
+app.use(cors(corsOptions));
 
 db();//  kết nối dữ liệu
 // router

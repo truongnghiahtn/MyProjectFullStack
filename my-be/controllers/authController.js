@@ -6,23 +6,28 @@ const Email = require("../utils/sendMail");
 const crypto = require("crypto");
 const utils = require("./../utils/util");
 
-createSendToken = (user, statusCode, res) => {
+createSendToken = (
+  user,
+  statusCode,
+  res,
+  mess = "Your account has been successfully created"
+) => {
   const token = utils.signJWT(user._id, process.env.EXP_JWT);
   const cookieOptions = {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000 //token có hiệu lực 3 ngày
     ),
     httpOnly: true,
-    secure: true,
+    // secure: true,
   };
-  //   if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+    if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
   res.cookie("jwt", token, cookieOptions);
   // Remove password from output
   user.password = undefined;
   res.status(statusCode).json({
     status: "success",
-    message: "Your account has been successfully created",
+    message: mess,
     data: {
       user,
     },
@@ -30,12 +35,22 @@ createSendToken = (user, statusCode, res) => {
 };
 class Auth {
   singUp = catchAsync(async (req, res, next) => {
-    let user = await User.findOne({email:req.body.email});
-    if(user){
-      return next(new AppError("This email already exists. Please provide a new email",400));
+    let user = await User.findOne({ email: req.body.email });
+    if (user) {
+      return next(
+        new AppError(
+          "This email already exists. Please provide a new email",
+          400
+        )
+      );
     }
-    if(req.body.password!==req.body.passwordConfirm){
-      return next(new AppError("password does not match passwordConfirm. Resend passwordConfirm",400));
+    if (req.body.password !== req.body.passwordConfirm) {
+      return next(
+        new AppError(
+          "password does not match passwordConfirm. Resend passwordConfirm",
+          400
+        )
+      );
     }
 
     const newUser = {
@@ -50,7 +65,8 @@ class Auth {
     await new Email(newUser, url).sendWelcome();
     res.status(200).json({
       status: "success",
-      message: "The token sent to you is valid for 10 minutes, check your email for verification",
+      message:
+        "The token sent to you is valid for 10 minutes, check your email for verification",
       data: {},
     });
   });
@@ -71,7 +87,7 @@ class Auth {
       role,
     });
     newUser.password = undefined;
-    res.status(statusCode).json({
+    res.status(201).json({
       status: "success",
       message: "Your account has been successfully created",
       data: {
@@ -95,7 +111,7 @@ class Auth {
     if (!checkPassword) {
       return next(new AppError(`Password is not correct`, 401));
     }
-    createSendToken(user, 200, res);
+    createSendToken(user, 200, res, "Logged in successfully");
   });
 
   //---------------------------------------//
@@ -200,7 +216,7 @@ class Auth {
       await user.save({ validateBeforeSave: false });
 
       return next(
-        new appError("There was an error sending the email. Try again later!"),
+        new AppError("There was an error sending the email. Try again later!"),
         500
       );
     }
@@ -246,6 +262,17 @@ class Auth {
     user.passwordConfirm = req.body.passwordConfirm;
     await user.save();
     createSendToken(user, 200, res);
+  });
+
+  getMe = catchAsync(async (req, res, next) => {
+    const user = await User.findById(req.user.id);
+    res.status(200).json({
+      status: "success",
+      message: "",
+      data: {
+        user,
+      },
+    });
   });
 }
 

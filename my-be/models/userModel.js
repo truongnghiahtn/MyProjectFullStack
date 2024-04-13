@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
+const { type } = require("os");
 
 const userSchema = mongoose.Schema({
   userName: {
@@ -14,7 +15,15 @@ const userSchema = mongoose.Schema({
     unique: true,
     validate: [validator.isEmail, "email invalidate"],
   },
-  photo: String,
+  photo: {
+    type: [
+      {
+        active: Boolean,
+        src: String,
+      },
+    ],
+    default: [{ active: true, src: "img/user.PNG" }],
+  },
   role: {
     type: String,
     enum: ["user", "admin", "manager"],
@@ -32,7 +41,8 @@ const userSchema = mongoose.Schema({
       validator: function (el) {
         return el === this.password;
       },
-      message: "password does not match passwordConfirm. Resend passwordConfirm",
+      message:
+        "password does not match passwordConfirm. Resend passwordConfirm",
     },
   },
   passwordChangedAt: Date,
