@@ -1,0 +1,86 @@
+.header {
+  min-height: 42rem;
+  //   background-color: var(--color-white);
+  padding: 0;
+  &__bg {
+    height: 35rem;
+    background-image: url(../../../assets/img/quiz7.PNG);
+    background-size: cover;
+    background-position: "center";
+    padding: 0;
+  }
+  &__menu {
+    display: flex;
+    align-items: center;
+    height: 7rem;
+    padding: 0 8rem;
+    @media only screen and (max-width: $bp-medium) {
+      padding: 0 2rem ;
+    }
+    &--col-2 {
+      align-items: center;
+      display: flex;
+    }
+    &--col-1 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &--col-3 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &--center {
+      display: flex;
+      align-items: center;
+    }
+    .menu__icon {
+      height: 2.5rem;
+      width: 2.5rem;
+      fill: var(--color-grey-light-4);
+      transition: all 0.3s;
+      margin: 0 5rem;
+      @media only screen and (max-width: $bp-medium) {
+        margin: 0 1rem;
+      }
+      cursor: pointer;
+      &:hover {
+        fill: var(--color-primary-light);
+        color: var(--color-primary-light);
+      }
+      &--active {
+        fill: var(--color-primary);
+        color: var(--color-primary);
+      }
+    }
+    &--setting {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      .menu__icon {
+        margin: 0 1rem;
+        color: var(--color-grey-light-4);
+        background-color: var(--color-grey-bg);
+        border-radius: 50%;
+        height: 3.5rem;
+        width: 3.5rem;
+        padding: 0.5rem;
+        @media only screen and (max-width: $bp-medium) {
+        padding: 0rem;
+        border-radius: 0;
+        background-color: transparent;
+        margin: 0;
+        }
+      }
+      .header__img {
+        width: 4.5rem;
+      }
+    }
+  }
+  &__img {
+    border-radius: 50%;
+    width: 5.5rem;
+  }
+
+}

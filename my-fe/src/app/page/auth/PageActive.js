@@ -13,6 +13,7 @@ const PageActive = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log("chay len nay");
     dispatch(setIsLoadingAuth());
     dispatch(postActiveUser({ token }));
     setIsActive(false);

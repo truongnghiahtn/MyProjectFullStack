@@ -3,11 +3,15 @@ import App from "./App";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PrivateRoute from "./PrivateRoute.js";
-import React,{Suspense} from "react";
+import React, { Suspense } from "react";
 import Login from "./app/page/auth/Login.js";
 import Register from "./app/page/auth/Register.js";
 import ActiveUser from "./app/page/auth/PageActive.js";
 import PageNotFound from "./app/page/PageNotFound.js";
+
+//APP
+import Home from "./app/page/Home.js";
+import Quiz from "./app/page/Quiz.js";
 
 const Layout = (props) => {
   return (
@@ -15,20 +19,13 @@ const Layout = (props) => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />}>
-            {/* <Route index element={<Home />} /> */}
-            {/* <Route path="user" element={<PrivateRoute><ListQuiz /></PrivateRoute>} /> */}
+            <Route index element={<Home />} />
+            <Route path="/quiz" element={<Quiz />} />
           </Route>
-          {/* <Route path="quiz/:id" element={<DetailQuiz />} /> */}
-          {/* <Route path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>}>
-            <Route index element={<Dashboard />} />
-            <Route path="manager-user" element={<ManagerUser />} />
-            <Route path="manager-quiz" element={<ManagerQuiz />} />
-            <Route path="manager-questions" element={<ManagerQuestion />} />
-          </Route> */}
           <Route path="/active-user/:token" element={<ActiveUser />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path='*' element={<PageNotFound/>} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer

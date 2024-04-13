@@ -17,14 +17,10 @@ const Login = () => {
     setTimeout(() => {
       setIsloading(false);
     }, 1000);
-  }, []);
-
-  useEffect(()=>{
-    if(auth.status===true){
+    if(auth.isAuthenticated === true){
       navigate('/');
     }
-  },[auth])
-
+  }, [auth]);
   const onFinish = (values) => {
     dispatch(setIsLoadingAuth());
     dispatch(postLogin(values));

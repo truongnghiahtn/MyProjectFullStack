@@ -31,7 +31,13 @@ export const postLogin = createAsyncThunk(
   "users/login",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post("users/login", { ...payload });
+      const data = await axios.post(
+        "users/login",
+        { ...payload },
+        {
+          withCredentials: true,
+        }
+      );
       if (data) {
         return data;
       }
@@ -44,11 +50,27 @@ export const postActiveUser = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.post("users/active", { ...payload });
+      console.log(data);
       if (data) {
         return data;
       }
-    } catch (error) {
-    }
+    } catch (error) {}
+  }
+);
+
+export const getMe = createAsyncThunk(
+  "users/getMe",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.get("users/getMe", {
+        withCredentials: true,
+      });
+      console.log(data);
+      if (data) {
+        console.log(data);
+        return data;
+      }
+    } catch (error) {}
   }
 );
 
@@ -90,7 +112,13 @@ export const auth = createSlice({
         setDefault(state, action);
       })
       .addCase(postLogin.fulfilled, (state, action) => {
+        if (action.payload.status === "success") {
+          state.isAuthenticated = true;
+        }
         setDefault(state, action);
+      })
+      .addCase(getMe.fulfilled, (state, action) => {
+        console.log(action);
       });
   },
 });

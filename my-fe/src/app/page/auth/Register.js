@@ -3,10 +3,9 @@ import clipLogin from "./../../../assets/video/backgroundTDN2.mp4";
 import { Button, Form, Input } from "antd";
 import { Link } from "react-router-dom";
 import Loading from "../loading/Loading";
-import { postRegister,setIsLoadingAuth } from "../../../redux/auth/auth";
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-
+import { postRegister, setIsLoadingAuth } from "../../../redux/auth/auth";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [isloading, setIsloading] = useState(true);
@@ -19,22 +18,24 @@ const Register = () => {
     setTimeout(() => {
       setIsloading(false);
     }, 1000);
-  }, []);
-  useEffect(()=>{
-    if(auth.status===true){
-      navigate('/login');
+    if (auth.isAuthenticated === true) {
+      navigate("/");
     }
-  },[auth])
+  }, []);
+
+  useEffect(() => {
+    if (auth.status === true) {
+      navigate("/login");
+    }
+  }, [auth]);
 
   const onFinish = (values) => {
     dispatch(setIsLoadingAuth());
     dispatch(postRegister(values));
-
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
 
   return (
     <>
@@ -51,7 +52,7 @@ const Register = () => {
           <div className="register__form--body">
             <h1>Sign Up</h1>
             <Form
-             form={form}
+              form={form}
               initialValues={{
                 remember: true,
               }}
@@ -105,19 +106,23 @@ const Register = () => {
               <Form.Item
                 label="Password Confirm"
                 name="passwordConfirm"
-                dependencies={['password']}
+                dependencies={["password"]}
                 hasFeedback
                 rules={[
                   {
                     required: true,
-                    message: 'Please confirm your password!',
+                    message: "Please confirm your password!",
                   },
                   ({ getFieldValue }) => ({
                     validator(_, value) {
-                      if (!value || getFieldValue('password') === value) {
+                      if (!value || getFieldValue("password") === value) {
                         return Promise.resolve();
                       }
-                      return Promise.reject(new Error('The new password that you entered do not match!'));
+                      return Promise.reject(
+                        new Error(
+                          "The new password that you entered do not match!"
+                        )
+                      );
                     },
                   }),
                 ]}
