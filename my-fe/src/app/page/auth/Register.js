@@ -17,9 +17,12 @@ const Register = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsloading(false);
-    }, 1000);
+    }, 500);
     if (auth.isAuthenticated === true) {
       navigate("/");
+    }
+    return()=>{
+      dispatch(setIsLoadingAuth());
     }
   }, []);
 
@@ -39,7 +42,7 @@ const Register = () => {
 
   return (
     <>
-      <Loading isloading={isloading} />
+      <Loading isLoading={isloading} />
       <div className="register">
         <div className="bg-video">
           <div className="bg-video__color"></div>
@@ -137,6 +140,7 @@ const Register = () => {
                     htmlType="submit"
                     style={{ width: "50%" }}
                     size="middle"
+                    className="btn"
                   >
                     Sign Up
                   </Button>

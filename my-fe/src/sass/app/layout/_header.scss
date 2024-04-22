@@ -76,6 +76,14 @@
       .header__img {
         width: 4.5rem;
       }
+
+      .menu__icon--small{
+        height: 3rem;
+        width: 3rem;
+        padding: 0.5rem;
+        margin: 0;
+        background-color: var(--color-grey-dark-2);
+      }
     }
   }
   &__img {

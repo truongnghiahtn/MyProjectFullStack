@@ -1,0 +1,74 @@
+.home--setting {
+    padding: 2rem 1rem;
+
+    &__header {
+        min-height: 15rem;
+        box-shadow: var(--shadow-light);
+        border-radius: 5px;
+        padding: 1rem;
+
+        &-left {}
+
+        &-right {
+            display: flex;
+            justify-content: end;
+            align-items: end;
+        }
+
+        &-shape {
+            width: 15rem;
+            height: 15rem;
+            float: left;
+            position: relative;
+            overflow: hidden;
+            border-radius: 50%;
+
+            @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+                -webkit-clip-path: circle(50% at 50% 50%);
+                clip-path: circle(50% at 50% 50%);
+                -webkit-shape-outside: circle(50% at 50% 50%);
+                shape-outside: circle(50% at 50% 50%);
+                border-radius: none;
+            }
+        }
+
+        &-text {
+            padding-top: 2rem;
+        }
+    }
+
+    &__img {
+        height: 100%;
+        transform: scale(1.2);
+    }
+
+    &__content {
+        margin-top: 3rem;
+        min-height: 50rem;
+        box-shadow: var(--shadow-light);
+        border-radius: 5px;
+        padding: 5rem 10rem;
+
+        &-edit {
+            display: flex;
+            justify-content: end;
+            position: relative;
+            .user--setting__icon{
+                // transform: translate(8rem,3rem);
+                position: absolute;
+                top :1rem;
+                right: -8rem;
+            }
+        }
+    }
+}
+
+.user--setting__icon {
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: 0.2s all;
+
+    &:hover {
+        color: var(--color-primary-light);
+    }
+}

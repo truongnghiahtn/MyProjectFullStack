@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import couterReducer from "./couter/couter";
 import { combineReducers } from "@reduxjs/toolkit";
 import authReducer from "./auth/auth";
+import systermReducer from "./systerm/systerm"
 import {
   persistStore,
   persistReducer,
@@ -23,7 +24,9 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   counter: couterReducer,
-  auth:authReducer
+  auth:authReducer,
+  systerm:systermReducer
+
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({

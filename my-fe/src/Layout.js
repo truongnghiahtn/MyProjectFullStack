@@ -10,8 +10,20 @@ import ActiveUser from "./app/page/auth/PageActive.js";
 import PageNotFound from "./app/page/PageNotFound.js";
 
 //APP
-import Home from "./app/page/Home.js";
-import Quiz from "./app/page/Quiz.js";
+import Home from "./app/page/PageHome/Home.js";
+import Quiz from "./app/page/PageQuiz/Quiz.js";
+import Video from "./app/page/PageVideo/Video.js";
+import New from "./app/page/PageNew/New.js";
+
+import UserSetting from "./app/page/PageUserSetting/UserSetting.js";
+import HomeSetting from "./app/page/PageUserSetting/HomeSetting.js";
+import Quickview from "./app/page/PageUserSetting/Quickview.js";
+// import Practice from "./app/page/PageUserSetting/Practice.js";
+import Practice from "./app/page/PageUserSetting/Practice.js";
+
+//admin
+import PageAdmin from "./app/page/admin/PageAdmin.js";
+import Dashboard from "./app/page/admin/dashboard/Dashboard.js";
 
 const Layout = (props) => {
   return (
@@ -19,8 +31,81 @@ const Layout = (props) => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />}>
-            <Route index element={<Home />} />
-            <Route path="/quiz" element={<Quiz />} />
+            <Route
+              index
+              element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/quiz"
+              element={
+                <PrivateRoute>
+                  <Quiz />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/new"
+              element={
+                <PrivateRoute>
+                  <New />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/video"
+              element={
+                <PrivateRoute>
+                  <Video />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/user-setting"
+              element={
+                <PrivateRoute>
+                  <UserSetting />
+                </PrivateRoute>
+              }
+            >
+              <Route
+                index
+                element={
+                  <PrivateRoute>
+                    <HomeSetting />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/user-setting/quick-view"
+                element={
+                  <PrivateRoute>
+                    <Quickview />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/user-setting/practice"
+                element={
+                  <PrivateRoute>
+                    <Practice />
+                  </PrivateRoute>
+                }
+              />
+            </Route>
+          </Route>
+          <Route path="/admin" element={<PageAdmin />}>
+            <Route
+              index
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
           </Route>
           <Route path="/active-user/:token" element={<ActiveUser />} />
           <Route path="/login" element={<Login />} />

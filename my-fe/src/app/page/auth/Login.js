@@ -16,7 +16,7 @@ const Login = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsloading(false);
-    }, 1000);
+    }, 500);
     if(auth.isAuthenticated === true){
       navigate('/');
     }
@@ -30,7 +30,7 @@ const Login = () => {
 
   return (
     <>
-      <Loading isloading={isloading} />
+      <Loading isLoading={isloading} />
       <div className="login">
         <div className="bg-video">
           <div className="bg-video__color"></div>
@@ -43,9 +43,6 @@ const Login = () => {
           <div className="login__form--body">
             <h1>Welcome</h1>
             <Form
-              initialValues={{
-                remember: true,
-              }}
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
               autoComplete="off"
@@ -86,6 +83,7 @@ const Login = () => {
                     htmlType="submit"
                     style={{ width: "50%" }}
                     size="middle"
+                    className="btn"
                   >
                     Login
                   </Button>
