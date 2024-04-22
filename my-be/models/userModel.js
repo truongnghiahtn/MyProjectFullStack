@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
-const { type } = require("os");
 
 const userSchema = mongoose.Schema({
   userName: {
@@ -29,6 +28,15 @@ const userSchema = mongoose.Schema({
     enum: ["user", "admin", "manager"],
     default: "user",
   },
+  description: {
+    type: String,
+  },
+  phone: {
+    type: String,
+  },
+  address: {
+    type: String,
+  },
   password: {
     type: String,
     required: [true, "password is a required field"],
@@ -44,6 +52,14 @@ const userSchema = mongoose.Schema({
       message:
         "password does not match passwordConfirm. Resend passwordConfirm",
     },
+  },
+  createAt:{
+    type:Date,
+    default: Date.now(),
+  },
+  updateAt:{
+    type:Date,
+    default: Date.now(),
   },
   passwordChangedAt: Date,
   passwordResetToken: String, // token rest password
