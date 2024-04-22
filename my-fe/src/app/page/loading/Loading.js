@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import $ from "jquery";
-const Loading = ({ isloading = true }) => {
+const Loading = ({ isLoading = true }) => {
   useEffect(() => {
-    if (!isloading) {
+    if (!isLoading) {
       setLoading();
     }
-  }, [isloading]);
+  }, [isLoading]);
 
   const setLoading = () => {
     $(".page-loading__overlay").fadeOut(1000);

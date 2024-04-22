@@ -18,6 +18,10 @@ const PageActive = () => {
     dispatch(postActiveUser({ token }));
     setIsActive(false);
     setIsSuccess(false);
+    return()=>{
+      dispatch(setIsLoadingAuth());
+      console.log("end");
+    }
   }, []);
 
   useEffect(() => {

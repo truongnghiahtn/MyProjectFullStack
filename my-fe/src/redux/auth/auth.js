@@ -2,12 +2,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../utils/customAxios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 const initialState = {
   auth: {
     username: "",
     role: "",
     email: "",
-    photo: "",
+    photo: [],
   },
   isAuthenticated: false,
   isLoading: false,
@@ -50,7 +51,6 @@ export const postActiveUser = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.post("users/active", { ...payload });
-      console.log(data);
       if (data) {
         return data;
       }
@@ -65,16 +65,28 @@ export const getMe = createAsyncThunk(
       const data = await axios.get("users/getMe", {
         withCredentials: true,
       });
-      console.log(data);
       if (data) {
-        console.log(data);
         return data;
       }
     } catch (error) {}
   }
 );
 
-const setDefault = (state, action) => {
+export const logOut = createAsyncThunk(
+  "users/logOut",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.get("users/logout", {
+        withCredentials: true,
+      });
+      if (data) {
+        return data;
+      }
+    } catch (error) {}
+  }
+);
+
+const setDefault = (state, action,istoast=true) => {
   state.isLoading = false;
   if (action.payload) {
     if (
@@ -84,10 +96,10 @@ const setDefault = (state, action) => {
     ) {
       state.error = action.payload.message;
       state.status = false;
-      toast.error(action?.payload?.message);
+      istoast&&toast.error(action?.payload?.message);
     } else {
       state.status = true;
-      toast.success(action?.payload?.message);
+      istoast&&toast.success(action?.payload?.message);
     }
   }
 };
@@ -118,7 +130,15 @@ export const auth = createSlice({
         setDefault(state, action);
       })
       .addCase(getMe.fulfilled, (state, action) => {
-        console.log(action);
+        if (action.payload.status === "success") {
+          state.auth = { ...action.payload.data.user, _id: null };
+        }
+        setDefault(state, action,false);
+      })
+      .addCase(logOut.fulfilled, (state, action) => {
+        if (action.payload.status === "success") {
+          state.isAuthenticated = false;
+        }
       });
   },
 });
