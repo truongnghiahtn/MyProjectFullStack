@@ -1,5 +1,7 @@
 import axios from "axios";
 import NProgress from 'nprogress';
+import { store } from "../redux/store";
+import { setLogout,setIsLoadingAuth } from "../redux/auth/auth";
 
 NProgress.configure({
   showSpinner:false,
@@ -34,9 +36,13 @@ instance.interceptors.response.use(
   },
   function (error) {
     NProgress.done();
-    // if(error.response.data && error.response.data.EC===-999){ //=> lỗi đăng nhập đăng về login
-    //   window.location.href="/login"
-    // }
+    console.log(error.response.data);
+    console.log(store);
+    if(error.response.data && error.response.data.message === "You are not logged in! Please log in to get access"){ //=> lỗi đăng nhập đăng về login
+      // window.location.href="/login"
+      store.dispatch(setLogout());
+      store.dispatch(setIsLoadingAuth());
+    }
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     return error && error.response && error.response.data

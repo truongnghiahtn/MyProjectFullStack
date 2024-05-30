@@ -86,7 +86,7 @@ export const logOut = createAsyncThunk(
   }
 );
 
-const setDefault = (state, action,istoast=true) => {
+const setDefault = (state, action, istoast = true) => {
   state.isLoading = false;
   if (action.payload) {
     if (
@@ -96,10 +96,10 @@ const setDefault = (state, action,istoast=true) => {
     ) {
       state.error = action.payload.message;
       state.status = false;
-      istoast&&toast.error(action?.payload?.message);
+      istoast && toast.error(action?.payload?.message);
     } else {
       state.status = true;
-      istoast&&toast.success(action?.payload?.message);
+      istoast && toast.success(action?.payload?.message);
     }
   }
 };
@@ -113,6 +113,9 @@ export const auth = createSlice({
       state.error = "";
       state.status = null;
     },
+    setLogout: (state) => {
+      state.isAuthenticated = false;
+    },
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
@@ -124,16 +127,16 @@ export const auth = createSlice({
         setDefault(state, action);
       })
       .addCase(postLogin.fulfilled, (state, action) => {
-        if (action.payload.status === "success") {
+        if (action?.payload?.status === "success") {
           state.isAuthenticated = true;
         }
         setDefault(state, action);
       })
       .addCase(getMe.fulfilled, (state, action) => {
-        if (action.payload.status === "success") {
+        if (action?.payload?.status === "success") {
           state.auth = { ...action.payload.data.user, _id: null };
         }
-        setDefault(state, action,false);
+        setDefault(state, action, false);
       })
       .addCase(logOut.fulfilled, (state, action) => {
         if (action.payload.status === "success") {
@@ -144,6 +147,6 @@ export const auth = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setIsLoadingAuth } = auth.actions;
+export const { setIsLoadingAuth,setLogout } = auth.actions;
 
 export default auth.reducer;

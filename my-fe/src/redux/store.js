@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import couterReducer from "./couter/couter";
 import { combineReducers } from "@reduxjs/toolkit";
 import authReducer from "./auth/auth";
-import systermReducer from "./systerm/systerm"
+import systermReducer from "./systerm/systerm";
+import questionReducer from "./question/question";
+import fileReducer from "./file/file";
+import topicReducer from "./topic/topic";
 import {
   persistStore,
   persistReducer,
@@ -23,9 +25,11 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  counter: couterReducer,
   auth:authReducer,
-  systerm:systermReducer
+  systerm:systermReducer,
+  question:questionReducer,
+  file:fileReducer,
+  topic:topicReducer
 
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);

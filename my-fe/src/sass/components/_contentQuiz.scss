@@ -1,0 +1,110 @@
+.content__quiz {
+    position: relative;
+    width: 850px;
+    height: 620px;
+    background-color: var(--color-grey-light-2);
+    border-radius: 5px;
+    box-shadow: var(--shadow-light-quiz);
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    padding-bottom: 30px;
+
+    &--title-time {
+        height: 35px;
+        position: absolute;
+        top: -20px;
+        left: 18px;
+        z-index: 10;
+        background: var(--color-grey-light-2);
+        background-image: linear-gradient(var(--color-primary-bg), var(--color-grey-light-2));
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &--title-question {
+        position: absolute;
+        top: 20px;
+        left: 25px;
+    }
+
+    &--question {
+        position: relative;
+        width: 700px;
+        height: 550px;
+        background-color: var(--color-grey-light-3);
+        border-radius: 1px;
+        // display: flex;
+        // justify-content: center;
+        padding: 20px;
+
+        .time__question {
+            background-image: linear-gradient(var(--color-grey-light-2), var(--color-grey-light-3));
+            top: -18px;
+        }
+
+        .content__question {
+            padding: 0 15px;
+
+            .content__question--video {
+                max-height: 300px;
+            }
+
+            height: 300px;
+        }
+
+        .content__answers {
+            width: 100%;
+            height: 190px;
+            margin-top: 20px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            .answer{
+                padding: 5px 10px;
+                border: 1px solid var(--color-grey-light-4);
+                border-radius: 8px;
+                background-color: var(--color-grey-light-2);
+                box-shadow: var(--shadow-light-quiz);
+                transition: all 0.2s;
+                &:hover{
+                    cursor: pointer;
+                    transform: translateY(2px);
+                }
+            }
+            .answer-active{
+                background-color: #02c435;
+            }
+        }
+    }
+
+    &--progress {
+        width: 100%;
+        height: 7px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+
+        .progress {
+            /* flex: 10; */
+            display: flex;
+            flex-basis: 100%;
+            height: 7px;
+            //: all 1s;
+            background: rgba(0, 0, 0, 0.5);
+
+            .progress__filled {
+                /* width: 50%; */
+                // background: #ffc600;
+                box-shadow:
+                    0 0 45px var(--neon-glow),
+                    inset 0 0 45px var(--neon-glow);
+                transition: ease-out 1.5s;
+                // flex: 0;
+                flex-basis: 100%;
+            }
+        }
+    }
+
+
+}

@@ -4,14 +4,7 @@ import { useSelector } from "react-redux";
 import { FaEdit } from "react-icons/fa";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, DatePicker, Form, Input, InputNumber, Modal } from "antd";
-const { RangePicker } = DatePicker;
 const { TextArea } = Input;
-const normFile = (e) => {
-  if (Array.isArray(e)) {
-    return e;
-  }
-  return e?.fileList;
-};
 
 const HomeSetting = () => {
   const [userLogo, setUserLogo] = useState(null);
@@ -52,11 +45,9 @@ const HomeSetting = () => {
   };
 
   const onFinish = (values) => {
-    console.log(values);
     setComponentDisabled(!componentDisabled);
   };
   const onFinishFailed = (errorInfo) => {
-    console.log(errorInfo);
   };
   return (
     <>
@@ -76,7 +67,7 @@ const HomeSetting = () => {
             </div>
           </Col>
           <Col span={10} className="home--setting__header-right">
-            <FaEdit className="user--setting__icon btn" />
+            <FaEdit className="user--setting__icon" />
           </Col>
         </Row>
         <Row className="home--setting__content">
@@ -151,7 +142,7 @@ const HomeSetting = () => {
                 }}
               >
                 <FaEdit
-                  className="user--setting__icon btn"
+                  className="user--setting__icon"
                   style={{
                     position: "absolute",
                     top: "1.7rem",
@@ -174,12 +165,13 @@ const HomeSetting = () => {
                     justifyContent: "end",
                   }}
                 >
-                  <Form.Item className="btn">
+                  <Form.Item >
                     <Button
                       type="primary"
                       htmlType="submit"
                       style={{ width: "10rem" }}
                       size="large"
+                      className="btn"
                     >
                       Submit
                     </Button>
@@ -191,7 +183,7 @@ const HomeSetting = () => {
           {componentDisabled && (
             <Col span={24} className="home--setting__content-edit">
               <FaEdit
-                className="user--setting__icon btn"
+                className="user--setting__icon"
                 onClick={(e) => {
                   setComponentDisabled(!componentDisabled);
                 }}
@@ -223,10 +215,8 @@ const ModalEditPassword = ({ isModalOpen, setIsModalOpen }) => {
     setIsModalOpen(false);
   };
   const onFinish = (values) => {
-    console.log(values);
   };
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
   };
   return (
     <>

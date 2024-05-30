@@ -37,7 +37,6 @@ const Register = () => {
     dispatch(postRegister(values));
   };
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
   };
 
   return (
