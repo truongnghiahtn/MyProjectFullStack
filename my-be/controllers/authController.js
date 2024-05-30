@@ -164,6 +164,7 @@ class Auth {
     }
     // GRANT ACCESS TO PROTECTED ROUTE
     req.user = currentUser;
+    req.filterObj=null;
     res.locals.user = currentUser;
     next();
   });
@@ -242,6 +243,7 @@ class Auth {
     }
     user.password = req.body.password;
     user.passwordConfirm = req.body.passwordConfirm;
+    user.updatedAt=Date.now();
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save();
@@ -260,6 +262,7 @@ class Auth {
     }
     user.password = req.body.password;
     user.passwordConfirm = req.body.passwordConfirm;
+    user.updatedAt=Date.now();
     await user.save();
     createSendToken(user, 200, res);
   });

@@ -53,11 +53,11 @@ const userSchema = mongoose.Schema({
         "password does not match passwordConfirm. Resend passwordConfirm",
     },
   },
-  createAt:{
+  createdAt:{
     type:Date,
     default: Date.now(),
   },
-  updateAt:{
+  updatedAt:{
     type:Date,
     default: Date.now(),
   },
@@ -70,6 +70,16 @@ const userSchema = mongoose.Schema({
     select: false,
   },
 });
+
+// virtual
+
+userSchema.virtual('quizs', {
+  ref: 'Quiz',
+  foreignField: 'user',
+  localField: '_id'
+});
+
+//
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next(); // khi update user ko đụng vô password

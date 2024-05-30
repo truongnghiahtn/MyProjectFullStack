@@ -22,8 +22,10 @@ import Quickview from "./app/page/PageUserSetting/Quickview.js";
 import Practice from "./app/page/PageUserSetting/Practice.js";
 
 //admin
-import PageAdmin from "./app/page/admin/PageAdmin.js";
-import Dashboard from "./app/page/admin/dashboard/Dashboard.js";
+import PageAdmin from "./admin/PageAdmin.js";
+import Dashboard from "./admin/page/dashboard/Dashboard.js";
+import ManagerQuestion from "./admin/page/managerQuestion/ManagerQuestion.js";
+import ManagerUser from "./admin/page/managerUser/ManagerUser.js";
 
 const Layout = (props) => {
   return (
@@ -103,6 +105,22 @@ const Layout = (props) => {
               element={
                 <PrivateRoute>
                   <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/admin/manager-user"
+              element={
+                <PrivateRoute>
+                  <ManagerUser />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/admin/manager-question"
+              element={
+                <PrivateRoute>
+                  <ManagerQuestion />
                 </PrivateRoute>
               }
             />

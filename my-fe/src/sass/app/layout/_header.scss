@@ -17,6 +17,9 @@
     @media only screen and (max-width: $bp-medium) {
       padding: 0 2rem ;
     }
+    @media only screen and (max-width: $bp-small) {
+      padding: 0 ;
+    }
     &--col-2 {
       align-items: center;
       display: flex;
@@ -43,6 +46,9 @@
       margin: 0 5rem;
       @media only screen and (max-width: $bp-medium) {
         margin: 0 1rem;
+      }
+      @media only screen and (max-width: $bp-small) {
+        margin: 0 0.5rem;
       }
       cursor: pointer;
       &:hover {
@@ -83,6 +89,15 @@
         padding: 0.5rem;
         margin: 0;
         background-color: var(--color-grey-dark-2);
+      }
+    }
+    &--setting-admin{
+      .menu__icon {
+        margin: 0 1rem;
+        background-color: transparent;
+        height: 4rem;
+        width: 4rem;
+        fill: var(--color-grey-dark-2);
       }
     }
   }

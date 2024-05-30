@@ -31,7 +31,7 @@ const HeaderLayout = () => {
   const dispatch=useDispatch();
   useEffect(()=>{
     let logo= auth.photo.find((item)=>item.active===true);
-    setUserLogo(`http://localhost:8100/${logo.src}`);
+    setUserLogo(`http://localhost:8100/${logo?.src}`);
 
   },[auth])
   useEffect(()=>{
@@ -104,14 +104,14 @@ const HeaderLayout = () => {
       <Header className="header">
         <Row className="header__bg"></Row>
         <Row className="header__menu">
-          <Col xs={2} xl={1} className="header__menu--col-1" >
+          <Col sm={2} xl={1} className="header__menu--col-1" >
             <img
               src={logo}
               className="header__img"
               style={{cursor:"pointer"}}
             />
           </Col>
-          <Col xs={6} xl={4} className="header__menu--col-2">
+          <Col sm={6} xl={4} className="header__menu--col-2">
             <div className="search">
               <input
                 type="text"
@@ -123,7 +123,7 @@ const HeaderLayout = () => {
               </button>
             </div>
           </Col>
-          <Col xs={10} xl={14} className="header__menu--col-3">
+          <Col sm={10} xl={14} className="header__menu--col-3">
             <div className="header__menu--center">
               <IoHomeSharp onClick={onHanddleLink.bind(this,"/")} className={url===""?"menu__icon menu__icon--active":"menu__icon"} />
               <IoNewspaper onClick={onHanddleLink.bind(this,"/new")} className={url==="new"?"menu__icon menu__icon--active":"menu__icon"} />
@@ -131,12 +131,12 @@ const HeaderLayout = () => {
               <IoVideocam onClick={onHanddleLink.bind(this,"/video")} className={url==="video"?"menu__icon menu__icon--active":"menu__icon"} />
             </div>
           </Col>
-          <Col xs={6} xl={5} className="header__menu--col-4">
+          <Col sm={6} xl={5} className="header__menu--col-4">
             <div className="header__menu--setting">
               <IoIosNotifications className="menu__icon" />
               <CgMenuGridO className="menu__icon" />
 
-              <Dropdown menu={{ items }} overlayStyle={{ padding: "20px" }}>
+              <Dropdown menu={{ items }} overlayStyle={{ padding: "20px" }} trigger={['click']}>
                 <img
                   src={userLogo}
                   className="header__img"
